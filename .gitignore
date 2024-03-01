@@ -1,0 +1,3 @@
+RecordedVideos/*.seq
+**/__pycache
+*.pyc
