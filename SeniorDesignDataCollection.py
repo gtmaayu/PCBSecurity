@@ -1,12 +1,11 @@
 # March 2
 # 
-# run by: python Arduino60on60off.py <saveas_file_name> 
+# run by: python SeniorDesignDataCollection.py <saveas_file_name> <no_of_iterations>
 
 # psuedocode:
-# calibrate temperature range from 15 (min) to 40 (max)
-# control relay to turn arduino on for 60 seconds
-# let arduino run for 
-# control relay to turn arduino off for 60 seconds
+# control relay to turn arduino on for 4 mins
+# let arduino run  and open flir app and record
+# control relay to turn arduino off for 4 ins
 
 from cmath import e
 import sys
