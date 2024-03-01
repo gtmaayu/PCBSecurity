@@ -1,3 +1,4 @@
 RecordedVideos/*.seq
-**/__pycache
+**/__pycache__
 *.pyc
+**/.DS_Store
