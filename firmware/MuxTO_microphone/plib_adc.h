@@ -88,6 +88,8 @@
     this interface.
 */
 
+void CLOCK_Initialize( void );
+
 void ADC_Initialize( void );
 
 void ADC_Enable( void );
