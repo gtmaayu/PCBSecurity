@@ -103,7 +103,7 @@ void CLOCK_Initialize( void )
     // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(16U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
     /* Selection of the Generator and write Lock for ADC */
-    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(19U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+    GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(19U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
     // /* Selection of the Generator and write Lock for DAC */
     // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(22U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
