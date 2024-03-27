@@ -74,7 +74,7 @@
 #define ADC_BIASCAL_POS  (3U)
 #define ADC_BIASCAL_Msk   ((0x7U << ADC_BIASCAL_POS))
 
-#define ADC_SELECTED_GAIN ADC_INPUTCTRL_GAIN_4X
+#define ADC_SELECTED_GAIN ADC_INPUTCTRL_GAIN_1X
 
 #define OTP4_ADDR                      _UINT32_(0x00806020)    /* OTP4 base address (type: fuses)*/
 
@@ -180,17 +180,15 @@ void ADC_Enable( void )
 void PORT_Initialize(void)
 {
    /************************** GROUP 0 Initialization *************************/
-   PORT->GROUP[0].PINCFG[4].reg = 0x1U;
-   PORT->GROUP[0].PINCFG[10].reg = 0x1U;
-   PORT->GROUP[0].PINCFG[11].reg = 0x1U;
+   PORT->Group[0].DIRCLR.reg = 0x4U; // Configure as input
+   PORT->Group[0].PMUX[1].reg &= 0xF0U;
+   PORT->Group[0].PMUX[1].reg |= 0x1U;  // Select mode B
 
-   PORT->GROUP[0].PMUX[2].reg = 0x1U;
-   PORT->GROUP[0].PMUX[5].reg = 0x33U;
-
+   PORT->Group[0].PINCFG[2].bit.PMUXEN = 0x1U;
 
 }
 
-/* Disable ADC module *\/
+/* Disable ADC module */
 void ADC_Disable( void )
 {
     ADC->CTRLA.reg = ((ADC->CTRLA.reg) & (uint8_t)(~ADC_CTRLA_ENABLE_Msk));
