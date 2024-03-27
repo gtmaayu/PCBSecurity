@@ -177,7 +177,20 @@ void ADC_Enable( void )
     }
 }
 
-/* Disable ADC module */
+void PORT_Initialize(void)
+{
+   /************************** GROUP 0 Initialization *************************/
+   PORT->GROUP[0].PINCFG[4].reg = 0x1U;
+   PORT->GROUP[0].PINCFG[10].reg = 0x1U;
+   PORT->GROUP[0].PINCFG[11].reg = 0x1U;
+
+   PORT->GROUP[0].PMUX[2].reg = 0x1U;
+   PORT->GROUP[0].PMUX[5].reg = 0x33U;
+
+
+}
+
+/* Disable ADC module *\/
 void ADC_Disable( void )
 {
     ADC->CTRLA.reg = ((ADC->CTRLA.reg) & (uint8_t)(~ADC_CTRLA_ENABLE_Msk));

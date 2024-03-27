@@ -88,6 +88,8 @@
     this interface.
 */
 
+void PORT_Initialize(void);
+
 void CLOCK_Initialize( void );
 
 void ADC_Initialize( void );
