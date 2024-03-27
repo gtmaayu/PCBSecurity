@@ -78,6 +78,9 @@
 
 #define OTP4_ADDR                      _UINT32_(0x00806020)    /* OTP4 base address (type: fuses)*/
 
+#define GCLK_CLKCTRL_CLKEN_Pos                _UINT16_(14)                                         /* (GCLK_CLKCTRL) Clock Enable Position */
+#define GCLK_CLKCTRL_CLKEN_Msk                (_UINT16_(0x1) << GCLK_CLKCTRL_CLKEN_Pos)            /* (GCLK_CLKCTRL) Clock Enable Mask */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: ADC Implementation
