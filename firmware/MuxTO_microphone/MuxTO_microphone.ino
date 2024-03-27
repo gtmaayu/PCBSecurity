@@ -86,9 +86,9 @@ float getVoltage(uint16_t val) {
 
 void loop() {
   /* Start ADC conversion */
-  SerialUSB.println("ADC_Conversion start");
+  // SerialUSB.println("ADC_Conversion start");
   ADC_ConversionStart();
-  SerialUSB.println("ADC_ConversionStart done");
+  // SerialUSB.println("ADC_ConversionStart done");
 
   /* Wait till ADC conversion result is available */
   while(!ADC_ConversionStatusGet())
