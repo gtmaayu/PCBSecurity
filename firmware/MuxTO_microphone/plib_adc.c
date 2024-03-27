@@ -86,6 +86,37 @@
 
 // *****************************************************************************
 /* Initialize ADC module */
+
+void CLOCK_Initialize( void )
+{
+    /* Function to Initialize the Oscillators */
+    // SYSCTRL_Initialize();
+
+    // DFLL_Initialize();
+    // GCLK0_Initialize();
+
+
+    // /* Selection of the Generator and write Lock for EIC */
+    // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(5U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+
+    // /* Selection of the Generator and write Lock for SERCOM2_CORE */
+    // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(16U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+
+    /* Selection of the Generator and write Lock for ADC */
+    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(19U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+
+    // /* Selection of the Generator and write Lock for DAC */
+    // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(22U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+
+
+    // /* Configure the APBC Bridge Clocks */
+    // PM_REGS->PM_APBCMASK = 0x510U;
+
+
+    // /* Disable RC oscillator */
+    // SYSCTRL_REGS->SYSCTRL_OSC8M = 0x0U;
+}
+
 void ADC_Initialize( void )
 {
     /* Reset ADC */

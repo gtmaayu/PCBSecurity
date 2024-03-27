@@ -65,6 +65,8 @@ void setup() {
   Serial1.begin(baudrate, serial_mode);
   lock_init(&q);
   JTAG2::sign_on();
+  SerialUSB.println("CLOCK_Init");
+  CLOCK_Initialize();
   SerialUSB.println("ADC_Init");
   ADC_Initialize();
   SerialUSB.println("ADC_Enable");
