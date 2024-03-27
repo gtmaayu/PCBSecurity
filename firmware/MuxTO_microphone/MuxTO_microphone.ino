@@ -22,6 +22,7 @@
 #include "JICE_io.h"
 #include "JTAG2.h"
 #include "UPDI_hi_lvl.h"
+#include "plib_adc.h"
 
 #define MIC_PIN A2
 
@@ -58,12 +59,16 @@ void setup() {
   // }
 
   /* Initialize serial links */
+  delay(5000);
   JICE_io::init();
   UPDI_io::init();
   Serial1.begin(baudrate, serial_mode);
   lock_init(&q);
   JTAG2::sign_on();
-  pinMode(MIC_PIN, INPUT);
+  SerialUSB.println("ADC_Init");
+  ADC_Initialize();
+  SerialUSB.println("ADC_Enable");
+  ADC_Enable();
 }
 
 float getVoltage(uint16_t val) {
@@ -76,24 +81,40 @@ float getVoltage(uint16_t val) {
 //long blink_delay = 1000;
 
 void loop() {
-  SerialUSB.print(getVoltage(analogRead(A2)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A3)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A4)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A4)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A5)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A6)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A7)));
-  SerialUSB.print(", ");
-  SerialUSB.print(getVoltage(analogRead(A14)));
-  SerialUSB.print(", ");
-  SerialUSB.println(getVoltage(analogRead(A15)));
-  delayMicroseconds(500);
+  /* Start ADC conversion */
+  SerialUSB.println("ADC_Conversion start");
+  ADC_ConversionStart();
+  SerialUSB.println("ADC_ConversionStart done");
+
+  /* Wait till ADC conversion result is available */
+  while(!ADC_ConversionStatusGet())
+  {
+    SerialUSB.println("Waiting on ADC");
+  };
+
+  /* Read the ADC result */
+  uint16_t adc_count = ADC_ConversionResultGet();
+  // if (!ADC->CTRLA.bit.ENABLE) {
+  //   SerialUSB.println("ADC not enabled!");
+  // }
+  // SerialUSB.print(analogRead(1));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(2));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(2));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(3));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(4));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(9));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(10));
+  // SerialUSB.print(", ");
+  // SerialUSB.print(analogRead(7));
+  // SerialUSB.print(", ");
+  SerialUSB.println(adc_count);
+  // delayMicroseconds(500);
 
 #ifdef DEBUG
   if (millis() - blink_timer > blink_delay) {
