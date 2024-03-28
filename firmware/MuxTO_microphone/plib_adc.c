@@ -141,7 +141,7 @@ void ADC_Initialize( void )
     ADC->SAMPCTRL.reg = ADC_SAMPCTRL_SAMPLEN(3U);
 
     /* reference */
-    ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC1;
+    ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC0;
 
     /* positive and negative input pins */
     ADC->INPUTCTRL.reg = (uint32_t) ADC_POSINPUT_PIN0 | (uint32_t) ADC_NEGINPUT_GND \
@@ -152,7 +152,7 @@ void ADC_Initialize( void )
     }
 
     /* Prescaler, Resolution & Operation Mode */
-    ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV32 | ADC_CTRLB_RESSEL_12BIT ;
+    ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV8 | ADC_CTRLB_RESSEL_12BIT ;
     while((ADC->STATUS.reg & ADC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Synchronization */
