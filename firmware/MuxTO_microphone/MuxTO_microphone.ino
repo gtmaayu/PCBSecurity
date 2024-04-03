@@ -93,7 +93,7 @@ void loop() {
   /* Wait till ADC conversion result is available */
   while(!ADC_ConversionStatusGet())
   {
-    SerialUSB.println("Waiting on ADC");
+    //SerialUSB.println("Waiting on ADC");
   };
 
   /* Read the ADC result */
