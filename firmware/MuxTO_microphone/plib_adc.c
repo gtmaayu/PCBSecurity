@@ -74,7 +74,7 @@
 #define ADC_BIASCAL_POS  (3U)
 #define ADC_BIASCAL_Msk   ((0x7U << ADC_BIASCAL_POS))
 
-#define ADC_SELECTED_GAIN ADC_INPUTCTRL_GAIN_1X
+#define ADC_SELECTED_GAIN ADC_INPUTCTRL_GAIN_2X
 
 #define OTP4_ADDR                      _UINT32_(0x00806020)    /* OTP4 base address (type: fuses)*/
 
@@ -93,10 +93,10 @@
 void CLOCK_Initialize( void )
 {
     /* Function to Initialize the Oscillators */
-    // SYSCTRL_Initialize();
+    SYSCTRL_Initialize();
 
-    // DFLL_Initialize();
-    // GCLK0_Initialize();
+    DFLL_Initialize();
+    GCLK0_Initialize();
 
 
     // /* Selection of the Generator and write Lock for EIC */
@@ -113,11 +113,15 @@ void CLOCK_Initialize( void )
 
 
     // /* Configure the APBC Bridge Clocks */
-    // PM_REGS->PM_APBCMASK = 0x510U;
+    //PM->APBCMASK.reg = 0x510U;
+    PM->APBCMASK.bit.ADC_ = 0x1u;
+    PM->APBCMASK.bit.AC_ = 0x1u;
+    PM->APBCMASK.bit.TCC0_ = 0x1u;
+
 
 
     // /* Disable RC oscillator */
-    // SYSCTRL_REGS->SYSCTRL_OSC8M = 0x0U;
+    SYSCTRL->OSC8M.reg = 0x0U;
 }
 
 void ADC_Initialize( void )
@@ -254,6 +258,10 @@ void ADC_WindowModeSet(ADC_WINMODE mode)
 /* Read the conversion result */
 uint16_t ADC_ConversionResultGet( void )
 {
+    while((ADC->STATUS.reg & ADC_STATUS_SYNCBUSY_Msk)!= 0U)
+    {
+        /* Wait for Synchronization */
+    }
     return (uint16_t)ADC->RESULT.reg;
 }
 
