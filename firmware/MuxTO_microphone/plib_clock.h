@@ -76,7 +76,7 @@
 // *****************************************************************************
 
 void CLOCK_Initialize( void );
-void GCLK0_Initialize( void );
+void GCLK1_Initialize( void );
 void SYSCTRL_Initialize( void );
 void DFLL_Initialize( void );
 

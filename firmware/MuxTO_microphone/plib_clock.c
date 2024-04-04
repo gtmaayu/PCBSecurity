@@ -98,10 +98,10 @@ void DFLL_Initialize( void )
 
 
 
-void GCLK0_Initialize( void )
+void GCLK1_Initialize( void )
 {
 
-    GCLK->GENCTRL.reg = GCLK_GENCTRL_SRC(7U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(0U);
+    GCLK->GENCTRL.reg = GCLK_GENCTRL_SRC(6U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(1U);
 
     while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY_Msk) == GCLK_STATUS_SYNCBUSY_Msk)
     {
