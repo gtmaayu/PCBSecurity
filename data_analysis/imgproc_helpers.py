@@ -3,10 +3,74 @@ import cv2
 import numpy as np
 
 
-def is_valid(image):
+def shift_by(img, shift_amount, vertical=False):
+    new_img = np.zeros_like(img)
+    if vertical:
+        if shift_amount > 0:
+            new_img[shift_amount:, :] = img[:-shift_amount, :]
+        else:
+            new_img[:shift_amount, :] = img[-shift_amount:, :]
+    else:
+        if shift_amount > 0:
+            new_img[:, shift_amount:] = img[:, :-shift_amount]
+        else:
+            new_img[:, :shift_amount] = img[:, -shift_amount:]
+    
+    return new_img
+
+def shift_img(img, pos_diffs):
+    new_img = img
+
+    if pos_diffs[0] != 0:
+        new_img = shift_by(new_img, pos_diffs[0], False)
+    if pos_diffs[1] != 0:
+        new_img = shift_by(new_img, pos_diffs[1], True)
+    
+    return new_img
+
+def read_alignment_vals(vid_dir):
+    # Open the file in read mode ('r')
+    with open(f'{vid_dir}/alignment.txt', 'r') as file:
+        # Read one line from the file
+        line = file.readline()
+        # Check if line is not empty
+        if line:
+            # Split the line into two numbers
+            numbers = line.split(',')
+            # Extract the numbers
+            return np.array([int(numbers[0].strip()), int(numbers[1].strip())])
+        
+    return None
+
+
+def is_valid(image, thresh=29):
     std = np.std(image)
 
-    return std > 30
+    print(std)
+
+    return std > thresh
+
+def tiff_to_grayscale(images, mi, ma):
+    pixrange = ma - mi
+    res = []
+    for img in images:
+        new_img = img - mi
+        new_img = 255 * new_img / pixrange
+        new_img = np.round(new_img)
+        new_img = new_img.astype(np.uint8)
+
+        res.append(new_img)
+
+    return res
+
+def minmax_pixels(images):
+    overall_min = float('inf')
+    overall_max = float('-inf')
+    for img in images:
+        overall_max = max(overall_max, np.max(img))
+        overall_min = min(overall_min, np.min(img))
+
+    return overall_min, overall_max
 
 def average_image(images, validation=lambda _: True):
     validated_images = []
