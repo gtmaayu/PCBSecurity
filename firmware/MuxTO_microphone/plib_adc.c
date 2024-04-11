@@ -93,10 +93,10 @@
 void CLOCK_Initialize( void )
 {
     /* Function to Initialize the Oscillators */
-    // SYSCTRL_Initialize();
+    //SYSCTRL_Initialize();
 
-    // DFLL_Initialize();
-    // GCLK0_Initialize();
+   // DFLL_Initialize();
+   GCLK1_Initialize();
 
 
     // /* Selection of the Generator and write Lock for EIC */
@@ -106,18 +106,25 @@ void CLOCK_Initialize( void )
     // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(16U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
     /* Selection of the Generator and write Lock for ADC */
-    GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(19U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
+    GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(19U) | GCLK_CLKCTRL_GEN(0x1U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
     // /* Selection of the Generator and write Lock for DAC */
     // GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(22U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
 
     // /* Configure the APBC Bridge Clocks */
-    // PM_REGS->PM_APBCMASK = 0x510U;
+    //PM->APBCMASK.reg = 0x510U;
+    PM->APBCMASK.reg |= PM_APBCMASK_ADC;
+
+   
+   // PM->APBCMASK.bit.ADC_ = 0x1u;
+    //PM->APBCMASK.bit.AC_ = 0x1u;
+    //PM->APBCMASK.bit.TCC0_ = 0x1u;
+
 
 
     // /* Disable RC oscillator */
-    // SYSCTRL_REGS->SYSCTRL_OSC8M = 0x0U;
+    //SYSCTRL->OSC8M.reg = 0x0U;
 }
 
 void ADC_Initialize( void )
@@ -138,7 +145,7 @@ void ADC_Initialize( void )
         | ADC_CALIB_BIAS_CAL((((*(uint32_t*)(OTP4_ADDR + 4U)) & ADC_BIASCAL_Msk) >> ADC_BIASCAL_POS)));
 
     /* Sampling length */
-    ADC->SAMPCTRL.reg = ADC_SAMPCTRL_SAMPLEN(3U);
+    ADC->SAMPCTRL.reg = ADC_SAMPCTRL_SAMPLEN(1U);
 
     /* reference */
     ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC0;
@@ -152,7 +159,7 @@ void ADC_Initialize( void )
     }
 
     /* Prescaler, Resolution & Operation Mode */
-    ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV8 | ADC_CTRLB_RESSEL_12BIT ;
+    ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV4 | ADC_CTRLB_RESSEL_12BIT ;
     while((ADC->STATUS.reg & ADC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Synchronization */
@@ -254,6 +261,10 @@ void ADC_WindowModeSet(ADC_WINMODE mode)
 /* Read the conversion result */
 uint16_t ADC_ConversionResultGet( void )
 {
+    while((ADC->STATUS.reg & ADC_STATUS_SYNCBUSY_Msk)!= 0U)
+    {
+        /* Wait for Synchronization */
+    }
     return (uint16_t)ADC->RESULT.reg;
 }
 

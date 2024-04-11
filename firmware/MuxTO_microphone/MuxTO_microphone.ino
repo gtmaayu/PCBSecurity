@@ -57,7 +57,7 @@ void setup() {
   // for (int i=15; i > 0; i--) {
   //   test_pin(i);
   // }
-
+  //ADC_Disable();
   /* Initialize serial links */
   delay(5000);
   JICE_io::init();
@@ -87,6 +87,7 @@ float getVoltage(uint16_t val) {
 void loop() {
   /* Start ADC conversion */
   // SerialUSB.println("ADC_Conversion start");
+
   ADC_ConversionStart();
   // SerialUSB.println("ADC_ConversionStart done");
 
@@ -119,6 +120,7 @@ void loop() {
   // SerialUSB.print(", ");
   SerialUSB.println(adc_count);
   // delayMicroseconds(500);
+
 
 #ifdef DEBUG
   if (millis() - blink_timer > blink_delay) {
@@ -222,6 +224,7 @@ void loop() {
         }
       }
     }
+    
     return;
   }
 
