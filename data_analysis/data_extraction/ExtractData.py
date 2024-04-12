@@ -2,8 +2,12 @@ import os
 import time
 import pyautogui as pg  # mouse position library
 import cv2
+import sys
 import numpy as np
-from .. import find_main_chip
+
+sys.path.append('../PCBSecurity/data_analysis')
+
+from data_analysis import find_main_chip
 
 pg.FAILSAFE = False
 
