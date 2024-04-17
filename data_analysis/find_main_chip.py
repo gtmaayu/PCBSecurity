@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from itertools import combinations
 
-IMG_PATH = '/Users/emmabethel/Documents/Classes/Capstone/PCBSecurity/RecordedVideos_april10_baselineBoardA_0_raw_screenshot.png'
+IMG_PATH = '/Users/emmabethel/Documents/Classes/Capstone/PCBSecurity/RecordedVideos_april10_baselineBoardB_0_raw_screenshot.png'
 
 
 def find_intersection(l1, l2):
@@ -46,7 +46,7 @@ def find_center_chip(img):
     # _,thresh = cv2.threshold(img,135,255,cv2.THRESH_TOZERO)
     # cv2.imshow("thresholded", thresh)
    
-    edges = cv2.Canny(img, 50, 200)
+    edges = cv2.Canny(img, 100, 200)
     # contours, _ = cv2.findContours(edges.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=25, minLineLength=15, maxLineGap=5)
 
