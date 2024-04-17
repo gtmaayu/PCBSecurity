@@ -9,7 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
 
 DATA_FILE_PATH = '../RecordedVideos/fittingParameters.csv'
-COMPONENTS = ['samd']
+COMPONENTS = ['atmega']
 DATA_COLS = ['a_rise', 'b_rise', 'c_rise', 'a_fall', 'b_fall', 'c_fall']
 MODELS = [LogisticRegression, RandomForestClassifier, SVC]
 

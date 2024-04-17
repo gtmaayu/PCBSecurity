@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file into a DataFrame
-df = pd.read_csv("/Users/emmabethel/Documents/Classes/Capstone/PCBSecurity/RecordedVideos/fittingParameters.csv")
+df = pd.read_csv("../RecordedVideos/fittingParameters.csv")
 
 # Create lists to store data for different Board Types
 baseline_components = []

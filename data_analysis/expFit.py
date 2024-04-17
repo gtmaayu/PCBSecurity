@@ -47,7 +47,7 @@ def fit(data,col,filename, *, up):
    
 
 path = '../RecordedVideos/flir_csv' # CHANGE TO YOUR OWN PATH
-typeList = itertools.product(["baseline", "microphone"], ["A", "B", "C", "D", "E"], range(5))
+typeList = itertools.product(["baseline", "microphone"], ["A", "B", "C", "D", "E"], range(9))
 # Order below must match order in exported FLIR CSVs
 compList = ['samd','atmega','3v3reg','buck','usbesd','fullboard']
 li = []
