@@ -5,8 +5,9 @@ Exponential fitting
 using scipy.optimize.curve_fit
 
 Created on Wed Oct 27 16:23:35 2021
+Modified for Nano Every boards and mic hack Apr 17 2024
 
-@author: Jacky
+@author: Jacky (original), Elliot (Nano Every modofications)
 """
 import os
 import numpy as np
@@ -47,6 +48,7 @@ def fit(data,col,filename, *, up):
 
 path = '../RecordedVideos/flir_csv' # CHANGE TO YOUR OWN PATH
 typeList = itertools.product(["baseline", "microphone"], ["A", "B", "C", "D", "E"], range(5))
+# Order below must match order in exported FLIR CSVs
 compList = ['samd','atmega','3v3reg','buck','usbesd','fullboard']
 li = []
 
