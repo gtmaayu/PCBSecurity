@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from itertools import combinations
 
-IMG_PATH = '/Users/emmabethel/Documents/Classes/Capstone/PCBSecurity/RecordedVideos_april15_microphoneBoardB_0_raw_screenshot.png'
+IMG_PATH = '/Users/emmabethel/Documents/Classes/Capstone/PCBSecurity/RecordedVideos_april10_baselineBoardB_0_raw_screenshot(1).png'
 
 
 def find_intersection(l1, l2):
@@ -112,13 +112,14 @@ def find_center_chip(img):
         corners[1] = corners[2]
         corners[2] = temp
 
+    # print(corners)
     return corners
 
 def find_atmega_right_corner(img):
     corners = find_center_chip(img)
 
     for x,y in corners:
-        if 535 <= x <= 560 and 350 <= y <= 400:
+        if 535 <= x <= 565 and 350 <= y <= 400:
             return (x,y) 
 
 if __name__ == "__main__":
